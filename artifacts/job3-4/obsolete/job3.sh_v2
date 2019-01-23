@@ -1,0 +1,80 @@
+#!/bin/bash
+RECEIVE_DIR=/home/ubuntu/job3-4/receiving
+PROCESS_DIR=/home/ubuntu/job3-4/processing
+OUTPUT_DIR=/home/ubuntu/job3-4/output
+DAT_DIR=/home/ubuntu/job3-4/output/dat
+FIN_DIR=/home/ubuntu/job3-4/output/fin
+USAGE_DIR=/home/ubuntu/job3-4/output/wlg_usage
+LOG_DIR=/tmp/urs_logs
+TSTAMP_DIR=/home/ubuntu/job3-4/tstamp
+F_LIFETIME=604800
+
+## workflow: receive all files at RECEIVE_DIR then move them to PROCESS_DIR
+## after processing, move files to OUTPUT_DIR
+
+## Check if uploading then move from receiving to processing
+for i in $(ls $RECEIVE_DIR | grep .*"\.dat".*$); do	## check every .dat file 
+	if ! lsof | grep $RECEIVE_DIR/$i; then		## check if file is still uploading
+		echo "$(stat -c %Y $RECEIVE_DIR/$i) $(($(stat -c %Y $RECEIVE_DIR/$i)+$F_LIFETIME)) $i" >> $TSTAMP_DIR/timestamp3.txt; ## record filename, timestamp today, timestamp 7 days after
+		mv $RECEIVE_DIR/$i $PROCESS_DIR;	## move to process dir if file finished upload
+	fi;
+done
+
+## Process files then move to output directory
+for i in $(ls $PROCESS_DIR | grep .*"\.dat"$); do	## check every .dat file in process dir
+	if [ -f $PROCESS_DIR/$i.FIN ]; then		## if there is a corresponding .dat.FIN 
+		echo "$PROCESS_DIR/$i.FIN exists for $PROCESS_DIR/$i" >> $LOG_DIR/job3-4.log; ## log successful find
+		mv $PROCESS_DIR/$i $DAT_DIR && mv $PROCESS_DIR/$i.FIN $FIN_DIR;	## move .dat to dat dir and .dat.FIN to fin dir
+	else
+		echo "$PROCESS_DIR/$i does not have any $PROCESS_DIR/$i.FIN" >> $LOG_DIR/job3-4.log; ## else, log unsuccessful
+		mv $PROCESS_DIR/$i $USAGE_DIR;	## move .dat file to wlg_usage
+	fi;
+done
+
+## Process .dat.FIN files that do not have any .dat
+## Another case when there is a .dat.FIN file while no .dat (however unlikely according to discussion)
+for i in $(ls $PROCESS_DIR | grep .*"\.dat\.FIN"$); do	## check every .dat.FIN file in process dir
+	if [ -f $PROCESS_DIR/$i ]; then			## since only .dat.FIN w/o .dat files are present, 
+		echo "$PROCESS_DIR/$i does not have any .dat file" >> $LOG_DIR/job3-4.log; ## logging
+		mv $PROCESS_DIR/$i $USAGE_DIR;		## move .dat.FIN to wlg_usage
+	fi;
+done
+
+## Upload output to S3
+## Comment this out if not using S3 
+#aws s3 cp $DAT_DIR s3://rods-sample/dat --recursive >> $LOG_DIR/job3.log 2> /dev/null 
+#aws s3 cp $FIN_DIR s3://rods-sample/fin --recursive >> $LOG_DIR/job3.log 2> /dev/null
+#aws s3 cp $USAGE_DIR s3://rods-sample/wlg_usage --recursive >> $LOG_DIR/job3.log 2> /dev/null
+
+## Clean up output directory
+#rm $DAT_DIR/* && echo "Cleaning $DAT_DIR complete." >> $LOG_DIR/job3.log
+#rm $FIN_DIR/* && echo "Cleaning $FIN_DIR complete." >> $LOG_DIR/job3.log
+#rm $USAGE_DIR/* && echo "Cleaning $USAGE_DIR complete." >> $LOG_DIR/job3.log
+#echo $(date) >> $LOG_DIR/job3.log
+#echo >> $LOG_DIR/job3.log
+
+##Housekeeping
+for i in $(ls $DAT_DIR | grep .*"\.dat"$); do		## check every .dat in dat dir
+	touch -m $DAT_DIR/$i				## update modify timestamp
+	if [ $(stat -c %Y $DAT_DIR/$i) -ge $(cat $TSTAMP_DIR/timestamp3.txt | grep $i$ | cut -f2 -d" ") ]; then	## if current timestamp is greater than equal to listed timestamp then delete the file
+		echo "$DAT_DIR/$i exceeded its lifetime and is now being deleted" >> $LOG_DIR/job3-4.log;
+		sed -i "/$i$/d" $TSTAMP_DIR/timestamp3.txt; ## remove entry in timestamp file
+		rm $DAT_DIR/$i;
+	fi;
+done
+for i in $(ls $FIN_DIR | grep .*"\.dat\.FIN"$); do	## check every .dat.FIN in fin dir
+	touch -m $FIN_DIR/$i				## update modify timestamp
+	if [ $(stat -c %Y $FIN_DIR/$i) -ge $(cat $TSTAMP_DIR/timestamp3.txt | grep $i$ | cut -f2 -d" ") ]; then ## if current timestamp is greater than equal to listed timestamp then delete the file
+		echo "$FIN_DIR/$i exceeded its lifetime and is now being deleted" >> $LOG_DIR/job3-4.log;
+		sed -i "/$i$/d" $TSTAMP_DIR/timestamp3.txt; ## remove entry in timestamp file
+		rm $FIN_DIR/$i;
+	fi;
+done
+for i in $(ls $USAGE_DIR | grep .*"\.dat".*$); do	## check every .dat and .dat.FIN in usage dir
+	touch -m $USAGE_DIR/$i				## update modify timestamp
+	if [ $(stat -c %Y $USAGE_DIR/$i) -ge $(cat $TSTAMP_DIR/timestamp3.txt | grep $i$ | cut -f2 -d" ") ]; then ## if current timestamp is greater than equal to listed timestamp then delete the file
+		echo "$USAGE_DIR/$i exceeded its lifetime and is now being deleted" >> $LOG_DIR/job3-4.log;
+		sed -i "/$i$/d" $TSTAMP_DIR/timestamp3.txt; ## remove entry in timestamp file
+		rm $USAGE_DIR/$i;
+	fi;
+done
