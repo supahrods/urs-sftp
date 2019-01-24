@@ -1,8 +1,8 @@
 #!/bin/bash
 TSTAMP_DIR=/home/urpadm/job1-2/tstamp
-RECEIVE_DIR=/home/urpadm/job1-2/receiving
-WLNFILTER_LANDING=/MYBSS/ISG/ADHOC/WLN_INC_LD/INPUT
-WLNFILTER_SUCCESS=/MYBSS/ISG/DAILY/WLN_FILTER
+RECEIVE_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/INPUT
+WLNFILTER_LANDING=/home/ubuntu/job1-2/wln_ftr_receive
+WLNFILTER_SUCCESS=/home/ubuntu/job1-2/wln_ftr_success
 CASE1_DIR=/home/urpadm/job1-2/cases/case1
 CASE2_DIR=/home/urpadm/job1-2/cases/case2
 CASE3_DIR=/home/urpadm/job1-2/cases/case3
@@ -11,7 +11,7 @@ CASE5_DIR=/home/urpadm/job1-2/cases/case5
 CASE6_DIR=/home/urpadm/job1-2/cases/case6
 LOG_DIR=/tmp/urs_logs
 POSSIBLE_SUCCESS=/home/urpadm/job1-2/possible_success
-SUCCESS_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/INPUT
+SUCCESS_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/OUTPUT
 F_LIFETIME=604800
 
 ## Segregation and generate timestamp for long distance calls
