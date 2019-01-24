@@ -1,14 +1,14 @@
 #!/bin/bash
-TSTAMP_DIR=/home/ubuntu/job1-2/tstamp
-CASE1_DIR=/home/ubuntu/job1-2/cases/case1
-CASE2_DIR=/home/ubuntu/job1-2/cases/case2
-CASE3_DIR=/home/ubuntu/job1-2/cases/case3
-CASE4_DIR=/home/ubuntu/job1-2/cases/case4
-CASE5_DIR=/home/ubuntu/job1-2/cases/case5
-CASE6_DIR=/home/ubuntu/job1-2/cases/case6
-BETWEEN_DIR=/home/ubuntu/job1-2/betweens
-POSSIBLE_SUCCESS=/home/ubuntu/job1-2/possible_success
-SUCCESS_DIR=/home/ubuntu/job1-2/success
+TSTAMP_DIR=/home/urpadm/job1-2/tstamp
+CASE1_DIR=/home/urpadm/job1-2/cases/case1
+CASE2_DIR=/home/urpadm/job1-2/cases/case2
+CASE3_DIR=/home/urpadm/job1-2/cases/case3
+CASE4_DIR=/home/urpadm/job1-2/cases/case4
+CASE5_DIR=/home/urpadm/job1-2/cases/case5
+CASE6_DIR=/home/urpadm/job1-2/cases/case6
+BETWEEN_DIR=/home/urpadm/job1-2/betweens
+POSSIBLE_SUCCESS=/home/urpadm/job1-2/possible_success
+SUCCESS_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/INPUT
 F_LIFETIME=604800
 
 ##PROCESS CASE1
