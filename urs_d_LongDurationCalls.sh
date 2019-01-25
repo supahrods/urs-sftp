@@ -15,8 +15,8 @@
 #!/bin/bash
 TSTAMP_DIR=/home/urpadm/job1-2/tstamp
 RECEIVE_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/INPUT #input
-WLNFILTER_LANDING=/home/ubuntu/job1-2/wln_ftr_receive #WLN_FILTER
-WLNFILTER_SUCCESS=/home/ubuntu/job1-2/wln_ftr_success
+WLNFILTER_LANDING=/home/urpadm/job1-2/wln_ftr_receive #WLN_FILTER
+WLNFILTER_SUCCESS=/home/urpadm/job1-2/wln_ftr_success
 CASE1_DIR=/home/urpadm/job1-2/cases/case1
 CASE2_DIR=/home/urpadm/job1-2/cases/case2
 CASE3_DIR=/home/urpadm/job1-2/cases/case3
@@ -126,4 +126,3 @@ for i in $(ls $WLNFILTER_LANDING/); do
 	echo "$i $(stat -c %Y $i) $(($(stat -c %Y $i)+$F_LIFETIME)) $(head -n1 $i | cut -f31 -d,)" >> $TSTAMP_DIR/timestamp_wln_ftr.txt;
 	mv $WLNFILTER_LANDING/$i $WLNFILTER_SUCCESS;
 done
-
