@@ -248,3 +248,4 @@ for i in $(ls $CASE6_DIR/ | grep .*.ftr$); do  ## for every file in case6 dir
 		fi;
         fi;
 done;
+
