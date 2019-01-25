@@ -139,14 +139,14 @@ for i in $(ls $CASE4_DIR/ | grep .*.ftr$); do  ## for every file in case4 dir
 		sort -t, -k25 -V $CASE4_DIR/placeholder_$CALL_IDENTIFIER > $CASE4_DIR/$i;
 		rm $CASE4_DIR/placeholder_$CALL_IDENTIFIER 2> /dev/null;
 		if [ $(cat $CASE4_DIR/$i 2> /dev/null | wc -l) == 1 ]; then
-	                sed -i "$ s/,false,2,true,$(tail -n1 $CASE4_DIR/$i | cut -f31 -d,)/,false,0,false,$(tail -n1 $CASE4_DIR/$i | cut -f31 -d,)/" $CASE4_DIR/$i;
+	                sed -i "$ s/false,2,true,$(tail -n1 $CASE4_DIR/$i | cut -f31 -d,)/false,0,false,$(tail -n1 $CASE4_DIR/$i | cut -f31 -d,)/" $CASE4_DIR/$i;
+			sed -i "$ s/$(tail -n1 $CASE4_DIR/$i | cut -f25-31 -d,)/,$(tail -n1 $CASE4_DIR/$i | cut -f26-31 -d,)/" $CASE4_DIR/$i;
         	        sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
 			mv $CASE4_DIR/$i $SUCCESS_DIR;
 			echo "$i $(stat -c %Y $SUCCESS_DIR/$i) $(($(stat -c %Y $SUCCESS_DIR/$i)+$F_LIFETIME)) $(head -n1 $SUCCESS_DIR/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_LongDurationCalls_housekeeping_tstamp.txt;
 			grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs rm 2> /dev/null;
 		else
 			sed -i "$ s/true,1,true,$(tail -n1 $CASE4_DIR/$i | cut -f31 -d,)/true,1,false,$(tail -n1 $CASE4_DIR/$i | cut -f31 -d,)/" $CASE4_DIR/$i;
-			sed -i "$ s/$(tail -n1 $CASE4_DIR/$i | cut -f25-31 -d,)/,$(tail -n1 $CASE4_DIR/$i | cut -f26-31 -d,)/" $CASE4_DIR/$i;
 			sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
 			mv $CASE4_DIR/$i $SUCCESS_DIR;
 			echo "$i $(stat -c %Y $SUCCESS_DIR/$i) $(($(stat -c %Y $SUCCESS_DIR/$i)+$F_LIFETIME)) $(head -n1 $SUCCESS_DIR/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_LongDurationCalls_housekeeping_tstamp.txt;
@@ -181,7 +181,7 @@ for i in $(ls $CASE5_DIR/ | grep .*.ftr$); do  ## for every file in case5 dir
 		if [ $(cat $CASE5_DIR/$i 2> /dev/null | wc -l) == 1 ]; then
                 	sed -i "$ s/true,1,true,$(tail -n1 $CASE5_DIR/$i | cut -f31 -d,)/false,0,false,$(tail -n1 $CASE5_DIR/$i | cut -f31 -d,)/" $CASE5_DIR/$i;
                         sed -i "$ s/$(tail -n1 $CASE5_DIR/$i | cut -f25-31 -d,)/,$(tail -n1 $CASE5_DIR/$i | cut -f26-31 -d,)/" $CASE5_DIR/$i;
-                	sed -i "/$(head -n1 $CASE5_DIR/$i | cut -f31 -d,)/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
+                	sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
                 	mv $CASE5_DIR/$i $SUCCESS_DIR;
                 	echo "$i $(stat -c %Y $SUCCESS_DIR/$i) $(($(stat -c %Y $SUCCESS_DIR/$i)+$F_LIFETIME)) $(head -n1 $SUCCESS_DIR/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_LongDurationCalls_housekeeping_tstamp.txt;
 			grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs rm 2> /dev/null;

@@ -110,6 +110,6 @@ done
 
 ## wireline filter timestamp creation
 for i in $(ls $WLNFILTER_LANDING/); do
-	echo "$i $(stat -c %Y $i) $(($(stat -c %Y $i)+$F_LIFETIME)) $(head -n1 $i | cut -f31 -d,)" >> $TSTAMP_DIR/${NAMING_CONVENTION}_timestamp_wln_ftr.txt;
+	echo "$i $(stat -c %Y $i) $(($(stat -c %Y $i)+$F_LIFETIME)) $(head -n1 $i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_WireLine_Ftr_Report_tstamp.txt;
 	mv $WLNFILTER_LANDING/$i $WLNFILTER_SUCCESS;
 done
