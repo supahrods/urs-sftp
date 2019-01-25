@@ -1,7 +1,7 @@
 #!/bin/bash
 TSTAMP_DIR=/home/urpadm/job1-2/tstamp
-RECEIVE_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/INPUT
-WLNFILTER_LANDING=/home/ubuntu/job1-2/wln_ftr_receive
+RECEIVE_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/INPUT #input
+WLNFILTER_LANDING=/home/ubuntu/job1-2/wln_ftr_receive #WLN_FILTER
 WLNFILTER_SUCCESS=/home/ubuntu/job1-2/wln_ftr_success
 CASE1_DIR=/home/urpadm/job1-2/cases/case1
 CASE2_DIR=/home/urpadm/job1-2/cases/case2
