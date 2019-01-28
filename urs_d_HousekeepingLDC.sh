@@ -3,8 +3,8 @@ TSTAMP_DIR=/home/urpadm/job1-2/tstamp
 LOG_DIR=/tmp/urs_logs
 SUCCESS_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/OUTPUT
 WLNFILTER_DIR=/MYBSS/ISG/DAILY/WLN_FILTER
-WLNFILTER_ARCHIVE_DIR=/home/ubuntu/job1-2/wln_ftr_archive
-FILE_ERROR_DIR=/home/ubuntu/job1-2/file_error_handling
+WLNFILTER_ARCHIVE_DIR=/home/urpadm/job1-2/wln_ftr_archive
+FILE_ERROR_DIR=/home/urpadm/job1-2/file_error_handling
 NAMING_CONVENTION=urs_d_LongDurationCalls_$(date +%F)
 
 ##Housekeeping long duration call
