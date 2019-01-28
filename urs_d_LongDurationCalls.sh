@@ -1,7 +1,7 @@
 #!/bin/bash
 TSTAMP_DIR=/home/urpadm/job1-2/tstamp
 RECEIVE_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/INPUT
-WLNFILTER_DIR=/home/urpadm/job1-2/wln_ftr
+WLNFILTER_DIR=/MYBSS/ISG/DAILY/WLN_FILTER
 WLNFILTER_ARCHIVE_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/ARCHIVE
 FILE_ERROR_DIR=/home/urpadm/job1-2/file_error_handling
 CASE1_DIR=/home/urpadm/job1-2/cases/case1
