@@ -12,7 +12,7 @@ CASE5_DIR=/home/urpadm/job1-2/cases/case5
 CASE6_DIR=/home/urpadm/job1-2/cases/case6
 LOG_DIR=/tmp/urs_logs
 POSSIBLE_SUCCESS=/home/urpadm/job1-2/possible_success
-SUCCESS_DIR=/home/urpadm/job1-2/success
+SUCCESS_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/OUTPUT
 F_LIFETIME=604800
 NAMING_CONVENTION=urs_d_LongDurationCalls_$(date +%F)
 

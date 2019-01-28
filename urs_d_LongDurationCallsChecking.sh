@@ -8,7 +8,7 @@ CASE5_DIR=/home/urpadm/job1-2/cases/case5
 CASE6_DIR=/home/urpadm/job1-2/cases/case6
 BETWEEN_DIR=/home/urpadm/job1-2/betweens
 POSSIBLE_SUCCESS=/home/urpadm/job1-2/possible_success
-SUCCESS_DIR=/home/urpadm/job1-2/success
+SUCCESS_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/OUTPUT
 F_LIFETIME=604800
 CHECK_COUNTER=0
 
