@@ -3,6 +3,7 @@ TSTAMP_DIR=/home/ubuntu/job1-2/tstamp
 RECEIVE_DIR=/home/ubuntu/job1-2/receiving
 WLNFILTER_LANDING=/home/ubuntu/job1-2/wln_ftr_receive
 WLNFILTER_SUCCESS=/home/ubuntu/job1-2/wln_ftr_success
+FILE_ERROR_DIR=/home/ubuntu/job1-2/file_error_handling
 CASE1_DIR=/home/ubuntu/job1-2/cases/case1
 CASE2_DIR=/home/ubuntu/job1-2/cases/case2
 CASE3_DIR=/home/ubuntu/job1-2/cases/case3
@@ -105,11 +106,16 @@ for i in $(ls $RECEIVE_DIR/ | grep .*.ftr$); do
 			echo "file $i is case 6 (1 liner last entry)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
 			mv $RECEIVE_DIR/$i $CASE6_DIR;
                 fi;
+	else
+		echo "file $i is out of current scope, moving to error handling directory" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "$i $(stat -c %Y $RECEIVE_DIR/$i) $(($(stat -c %Y $RECEIVE_DIR/$i)+$F_LIFETIME)) $(head -n1 $RECEIVE_DIR/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_ErrorFile_Handling_tstamp.txt;
+		sed -i "/$i/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
+		mv $RECEIVE_DIR/$i $FILE_ERROR_DIR;
 	fi;
 done
 
 ## wireline filter timestamp creation
 for i in $(ls $WLNFILTER_LANDING/); do
-	echo "$i $(stat -c %Y $i) $(($(stat -c %Y $i)+$F_LIFETIME)) $(head -n1 $i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_WireLine_Ftr_Report_tstamp.txt;
+	echo "$i $(stat -c %Y $WLNFILTER_LANDING/$i) $(($(stat -c %Y $WLNFILTER_LANDING/$i)+$F_LIFETIME)) $(head -n1 $WLNFILTER_LANDING/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_WireLine_Ftr_Report_tstamp.txt;
 	mv $WLNFILTER_LANDING/$i $WLNFILTER_SUCCESS;
 done
