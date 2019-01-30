@@ -1,17 +1,17 @@
 #!/bin/bash
-TSTAMP_DIR=/home/urpadm/job1-2/tstamp
+TSTAMP_DIR=/appl/urpadm/job1-2/tstamp
 RECEIVE_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/INPUT
 WLNFILTER_DIR=/MYBSS/ISG/DAILY/WLN_FILTER
 WLNFILTER_ARCHIVE_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/ARCHIVE
-FILE_ERROR_DIR=/home/urpadm/job1-2/file_error_handling
-CASE1_DIR=/home/urpadm/job1-2/cases/case1
-CASE2_DIR=/home/urpadm/job1-2/cases/case2
-CASE3_DIR=/home/urpadm/job1-2/cases/case3
-CASE4_DIR=/home/urpadm/job1-2/cases/case4
-CASE5_DIR=/home/urpadm/job1-2/cases/case5
-CASE6_DIR=/home/urpadm/job1-2/cases/case6
+FILE_ERROR_DIR=/appl/urpadm/job1-2/file_error_handling
+CASE1_DIR=/appl/urpadm/job1-2/cases/case1
+CASE2_DIR=/appl/urpadm/job1-2/cases/case2
+CASE3_DIR=/appl/urpadm/job1-2/cases/case3
+CASE4_DIR=/appl/urpadm/job1-2/cases/case4
+CASE5_DIR=/appl/urpadm/job1-2/cases/case5
+CASE6_DIR=/appl/urpadm/job1-2/cases/case6
 LOG_DIR=/tmp/urs_logs
-POSSIBLE_SUCCESS=/home/urpadm/job1-2/possible_success
+POSSIBLE_SUCCESS=/appl/urpadm/job1-2/possible_success
 SUCCESS_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/OUTPUT
 F_LIFETIME=604800
 NAMING_CONVENTION=urs_d_LongDurationCalls_$(date +%F)

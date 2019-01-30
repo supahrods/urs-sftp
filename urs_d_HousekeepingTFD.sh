@@ -3,7 +3,7 @@ DAT_DIR=/MYBSS/EP_FILES/USAGE_WLN/DAT
 FIN_DIR=/MYBSS/EP_FILES/USAGE_WLN/FIN
 USAGE_DIR=/MYBSS/EP_FILES/BACKUP/USAGE_WLN/
 LOG_DIR=/tmp/urs_logs
-TSTAMP_DIR=/home/urpadm/job3-4/tstamp
+TSTAMP_DIR=/appl/urpadm/job3-4/tstamp
 
 ##Housekeeping job3
 for i in $(ls $DAT_DIR | grep .*"\.dat"$); do           ## check every .dat in dat dir
