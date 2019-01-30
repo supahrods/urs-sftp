@@ -13,7 +13,7 @@ CASE6_DIR=/home/ubuntu/job1-2/cases/case6
 LOG_DIR=/tmp/urs_logs
 POSSIBLE_SUCCESS=/home/ubuntu/job1-2/possible_success
 SUCCESS_DIR=/home/ubuntu/job1-2/success
-F_LIFETIME=604800
+F_LIFETIME=600
 NAMING_CONVENTION=urs_d_LongDurationCalls_$(date +%F)
 
 ## Segregation and generate timestamp for long distance calls
