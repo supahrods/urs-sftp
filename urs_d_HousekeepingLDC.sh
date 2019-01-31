@@ -5,6 +5,7 @@ SUCCESS_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/OUTPUT
 WLNFILTER_DIR=/MYBSS/ISG/DAILY/WLN_FILTER
 WLNFILTER_ARCHIVE_DIR=/appl/urpadm/job1-2/wln_ftr_archive
 FILE_ERROR_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/ERROR
+MERGE_DIR=/appl/urpadm/job1-2/merged
 NAMING_CONVENTION=urs_d_LongDurationCalls_$(date +%F)
 
 ##Housekeeping long duration call
@@ -50,3 +51,7 @@ for i in $(ls $WLNFILTER_ARCHIVE_DIR); do
                 fi;
         fi;
 done
+
+##Housekeeping wireline filter merged files
+touch -d "last week" ${MERGE_DIR}/date_check;
+find $MERGE_DIR -type f ! -newer ${MERGE_DIR}/date_check | xargs rm -rf 2> /dev/null;

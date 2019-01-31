@@ -9,8 +9,10 @@ CASE6_DIR=/appl/urpadm/job1-2/cases/case6
 BETWEEN_DIR=/appl/urpadm/job1-2/betweens
 POSSIBLE_SUCCESS=/appl/urpadm/job1-2/possible_success
 SUCCESS_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/OUTPUT
+LOG_DIR=/tmp/urs_logs
 F_LIFETIME=604800
 CHECK_COUNTER=0
+NAMING_CONVENTION=urs_d_MergedLongDurationCalls_$(date +%F)
 
 ##PROCESS CASE1
 for i in $(ls $CASE1_DIR/ | grep .*.ftr$); do  ## for every file in case1 dir
@@ -37,7 +39,13 @@ for i in $(ls $CASE1_DIR/ | grep .*.ftr$); do  ## for every file in case1 dir
 		sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
 		mv $CASE1_DIR/$i $SUCCESS_DIR;
 		echo "$i $(stat -c %Y $SUCCESS_DIR/$i) $(($(stat -c %Y $SUCCESS_DIR/$i)+$F_LIFETIME)) $(head -n1 $SUCCESS_DIR/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_LongDurationCalls_housekeeping_tstamp.txt;
-		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs rm 2> /dev/null;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "Number of file entries: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "Number of merged files: $(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
 	fi;
 done;
 
@@ -69,7 +77,13 @@ for i in $(ls $CASE2_DIR/ | grep .*.ftr$); do  ## for every file in case2 dir
                 sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
                 mv $CASE2_DIR/$i $SUCCESS_DIR;
 		echo "$i $(stat -c %Y $SUCCESS_DIR/$i) $(($(stat -c %Y $SUCCESS_DIR/$i)+$F_LIFETIME)) $(head -n1 $SUCCESS_DIR/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_LongDurationCalls_housekeeping_tstamp.txt;
-		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs rm 2> /dev/null;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "Number of file entries: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "Number of merged files: $(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
 done;
 
@@ -113,7 +127,13 @@ for i in $(ls $CASE3_DIR/ | grep .*.ftr$); do  ## for every file in case3 dir
                 sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
                 mv $CASE3_DIR/$i $SUCCESS_DIR;
 		echo "$i $(stat -c %Y $SUCCESS_DIR/$i) $(($(stat -c %Y $SUCCESS_DIR/$i)+$F_LIFETIME)) $(head -n1 $SUCCESS_DIR/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_LongDurationCalls_housekeeping_tstamp.txt;
-		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs rm 2> /dev/null;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "Number of file entries: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "Number of merged files: $(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
 done;
 
@@ -144,14 +164,19 @@ for i in $(ls $CASE4_DIR/ | grep .*.ftr$); do  ## for every file in case4 dir
         	        sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
 			mv $CASE4_DIR/$i $SUCCESS_DIR;
 			echo "$i $(stat -c %Y $SUCCESS_DIR/$i) $(($(stat -c %Y $SUCCESS_DIR/$i)+$F_LIFETIME)) $(head -n1 $SUCCESS_DIR/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_LongDurationCalls_housekeeping_tstamp.txt;
-			grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs rm 2> /dev/null;
 		else
 			sed -i "$ s/true,1,true,$(tail -n1 $CASE4_DIR/$i | cut -f31 -d,)/true,1,false,$(tail -n1 $CASE4_DIR/$i | cut -f31 -d,)/" $CASE4_DIR/$i;
 			sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
 			mv $CASE4_DIR/$i $SUCCESS_DIR;
 			echo "$i $(stat -c %Y $SUCCESS_DIR/$i) $(($(stat -c %Y $SUCCESS_DIR/$i)+$F_LIFETIME)) $(head -n1 $SUCCESS_DIR/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_LongDurationCalls_housekeeping_tstamp.txt;
-			grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs rm 2> /dev/null;
 		fi;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "Number of file entries: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "Number of merged files: $(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
 done;
 
@@ -184,7 +209,6 @@ for i in $(ls $CASE5_DIR/ | grep .*.ftr$); do  ## for every file in case5 dir
                 	sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
                 	mv $CASE5_DIR/$i $SUCCESS_DIR;
                 	echo "$i $(stat -c %Y $SUCCESS_DIR/$i) $(($(stat -c %Y $SUCCESS_DIR/$i)+$F_LIFETIME)) $(head -n1 $SUCCESS_DIR/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_LongDurationCalls_housekeeping_tstamp.txt;
-			grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs rm 2> /dev/null;
 		else
 			sed -i "1 s/true,1,true,$(head -n1 $CASE5_DIR/$i | cut -f31 -d,)/false,2,true,$(head -n1 $CASE5_DIR/$i | cut -f31 -d,)/" $CASE5_DIR/$i;
 			for a in $(nl $CASE5_DIR/$i | cut -c6); do
@@ -194,8 +218,14 @@ for i in $(ls $CASE5_DIR/ | grep .*.ftr$); do  ## for every file in case5 dir
 			sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
 			mv $CASE5_DIR/$i $SUCCESS_DIR;
 			echo "$i $(stat -c %Y $SUCCESS_DIR/$i) $(($(stat -c %Y $SUCCESS_DIR/$i)+$F_LIFETIME)) $(head -n1 $SUCCESS_DIR/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_LongDurationCalls_housekeeping_tstamp.txt;
-			grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs rm 2> /dev/null;
 		fi;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "Number of file entries: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "Number of merged files: $(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
 done;
 
@@ -226,7 +256,6 @@ for i in $(ls $CASE6_DIR/ | grep .*.ftr$); do  ## for every file in case6 dir
                 	sed -i "/$(head -n1 $CASE6_DIR/$i | cut -f31 -d,)/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
                 	mv $CASE6_DIR/$i $SUCCESS_DIR;
                 	echo "$i $(stat -c %Y $SUCCESS_DIR/$i) $(($(stat -c %Y $SUCCESS_DIR/$i)+$F_LIFETIME)) $(head -n1 $SUCCESS_DIR/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_LongDurationCalls_housekeeping_tstamp.txt;
-			grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs rm 2> /dev/null;
 		else
 			sed -i "1 s/true,1,true,$CALL_IDENTIFIER/false,2,true,$CALL_IDENTIFIER/" $CASE6_DIR/$i;
 			for a in $(nl $CASE6_DIR/$i | cut -c6); do
@@ -235,7 +264,13 @@ for i in $(ls $CASE6_DIR/ | grep .*.ftr$); do  ## for every file in case6 dir
 			sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
 			mv $CASE6_DIR/$i $SUCCESS_DIR;
 			echo "$i $(stat -c %Y $SUCCESS_DIR/$i) $(($(stat -c %Y $SUCCESS_DIR/$i)+$F_LIFETIME)) $(head -n1 $SUCCESS_DIR/$i | cut -f31 -d,)" >> $TSTAMP_DIR/urs_d_LongDurationCalls_housekeeping_tstamp.txt;
-			grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs rm 2> /dev/null;
 		fi;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "Number of file entries: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "Number of merged files: $(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
 done;
