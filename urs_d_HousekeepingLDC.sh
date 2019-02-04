@@ -1,6 +1,20 @@
+#----------------------------------------------------------
+# Author   : John Rodel Villa
+# Date     : January 22, 2019
+# Version  : 1.3
+#
+# Description : Housekeeping of cDRs
+#
+#----------------------------------------------------------
+# Revision History:
+# Author: Joussyd M. Calupig
+# Date: February 4, 2019
+# Description: Updated path/directories and Headers
+#----------------------------------------------------------
+
 #!/bin/bash
 TSTAMP_DIR=/appl/urpadm/job1-2/tstamp
-LOG_DIR=/tmp/urs_logs
+LOG_DIR=/logs/urs_logs
 SUCCESS_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/OUTPUT
 WLNFILTER_DIR=/MYBSS/ISG/DAILY/WLN_FILTER
 WLNFILTER_ARCHIVE_DIR=/appl/urpadm/job1-2/wln_ftr_archive
@@ -16,18 +30,6 @@ for i in $(ls $SUCCESS_DIR); do          		 ## check every .dat in dat dir
                 sed -i "/$i/d" $TSTAMP_DIR/urs_d_LongDurationCalls_housekeeping_tstamp.txt; ## remove entry in timestamp file
                 rm $SUCCESS_DIR/$i 2> /dev/null;
         fi;
-done
-
-##Housekeeping wireline filter report
-for i in $(ls $WLNFILTER_DIR); do
-	if grep -q $i $TSTAMP_DIR/urs_d_WireLine_Ftr_Report_tstamp.txt; then
-		touch -m $WLNFILTER_DIR/$i                            ## update modify timestamp
-        	if [ $(stat -c %Y $WLNFILTER_DIR/$i) -ge $(cat $TSTAMP_DIR/urs_d_WireLine_Ftr_Report_tstamp.txt 2> /dev/null | grep $i | cut -f3 -d" ") ]; then ## if current timestamp is greater than equal to listed timestamp then delete the file
-                	echo "$WLNFILTER_DIR/$i exceeded its lifetime and is now being deleted" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-               		sed -i "/$i/d" $TSTAMP_DIR/urs_d_WireLine_Ftr_Report_tstamp.txt; ## remove entry in timestamp file
-                	rm $WLNFILTER_DIR/$i 2> /dev/null;
-        	fi;
-	fi;
 done
 
 ##Housekeeping error files

@@ -1,3 +1,17 @@
+#----------------------------------------------------------
+# Author   : John Rodel Villa
+# Date     : January 22, 2019
+# Version  : 1.3
+#
+# Description : Segregation of cDRs based on satisfied case
+#
+#----------------------------------------------------------
+# Revision History:
+# Author: Joussyd M. Calupig
+# Date: February 4, 2019
+# Description: Updated path/directories and Headers
+#----------------------------------------------------------
+
 #!/bin/bash
 TSTAMP_DIR=/appl/urpadm/job1-2/tstamp
 RECEIVE_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/INPUT
@@ -10,7 +24,7 @@ CASE3_DIR=/appl/urpadm/job1-2/cases/case3
 CASE4_DIR=/appl/urpadm/job1-2/cases/case4
 CASE5_DIR=/appl/urpadm/job1-2/cases/case5
 CASE6_DIR=/appl/urpadm/job1-2/cases/case6
-LOG_DIR=/tmp/urs_logs
+LOG_DIR=/logs/urs_logs
 POSSIBLE_SUCCESS=/appl/urpadm/job1-2/possible_success
 SUCCESS_DIR=/MYBSS/ISG/ADHOC/WLN_INC_LD/OUTPUT
 F_LIFETIME=604800

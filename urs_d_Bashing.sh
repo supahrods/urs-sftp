@@ -1,3 +1,17 @@
+#----------------------------------------------------------
+# Author   : John Rodel Villa
+# Date     : January 22, 2019
+# Version  : 1.3
+#
+# Description : Bashing of received .dat and .FIN files from EOD summary
+#
+#----------------------------------------------------------
+# Revision History:
+# Author: Joussyd M. Calupig
+# Date: February 4, 2019
+# Description: Updated path/directories and Headers
+#----------------------------------------------------------
+
 #!/bin/bash
 DATE_FILENAME=$(date +%F_%H-%M-%S)_results.t3xt
 RECEIVE_DIR=/appl/urpadm/job3-4/receiving
@@ -15,7 +29,7 @@ MISSING_FILES=$((0))
 ## Check if uploading then move from receiving to processing
 for i in $(ls $RECEIVE_DIR | grep .*"\.txt"$); do
 	if ! lsof | grep $RECEIVE_DIR/$i; then
-		echo "$(stat -c %Y $RECEIVE_DIR/$i) $(($(stat -c %Y $RECEIVE_DIR/$i)+$F_LIFETIME)) $i" >> $TSTAMP_DIR/timestamp4.txt; ## record filename, timestamp today, timestamp 7 days after
+		echo "$(stat -c %Y $RECEIVE_DIR/$i) $(($(stat -c %Y $RECEIVE_DIR/$i)+$F_LIFETIME)) $i" >> $TSTAMP_DIR/urs_d_eod_report_tstamp.txt; ## record filename, timestamp today, timestamp 7 days after
   		mv $RECEIVE_DIR/$i $PROCESS_DIR;
  	fi;
 done
@@ -54,4 +68,4 @@ echo -e "\n------------------------- End of Summary Report ---------------------
 ## Move file output report to wlg usage dir
 mv $PROCESS_DIR/*.txt $USAGE_DIR 2> /dev/null;
 mv $OUTPUT_DIR/$DATE_FILENAME $USAGE_DIR 2> /dev/null;
-echo "$(stat -c %Y $USAGE_DIR/$DATE_FILENAME) $(($(stat -c %Y $USAGE_DIR/$DATE_FILENAME)+$F_LIFETIME)) $USAGE_DIR/$DATE_FILENAME" >> $TSTAMP_DIR/timestamp4.txt; ## record filename, timestamp today, timestamp 7 days after
+echo "$(stat -c %Y $USAGE_DIR/$DATE_FILENAME) $(($(stat -c %Y $USAGE_DIR/$DATE_FILENAME)+$F_LIFETIME)) $USAGE_DIR/$DATE_FILENAME" >> $TSTAMP_DIR/urs_d_eod_report_tstamp.txt; ## record filename, timestamp today, timestamp 7 days after
