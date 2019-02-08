@@ -15,13 +15,13 @@
 #!/bin/bash
 DAT_DIR=/MYBSS/EP_FILES/USAGE_WLN/DAT
 FIN_DIR=/MYBSS/EP_FILES/USAGE_WLN/FIN
-USAGE_DIR=/MYBSS/EP_FILES/BACKUP/USAGE_WLN/
-BACKUP_DIR=/appl/urpadm/job3-4/output/backup
+USAGE_DIR=/MYBSS/EP_FILES/USAGE_WLN/REPORT
+BACKUP_DIR=/MYBSS/EP_FILES/BACKUP/USAGE_WLN/
 LOG_DIR=/logs/urs_logs
 TSTAMP_DIR=/appl/urpadm/job3-4/tstamp
-NAMING_CONVENTION=urs_d_findat_eod_report_$(date +%F)
+NAMING_CONVENTION=urs_d_HousekeepingTFD_$(date +%F)
 
-
+echo $(date +%F)": Housekeeping will start..." >> $LOG_DIR/$NAMING_CONVENTION.log;
 ## Housekeeping for dat directory
 find $DAT_DIR -type f -ctime +3 | xargs -I {} mv {} $BACKUP_DIR 2> /dev/null;
 
@@ -40,3 +40,5 @@ for i in $(ls $USAGE_DIR | grep .*"\.t3xt"$); do        ## check every .t3xt in 
                 rm $USAGE_DIR/$i;
         fi;
 done
+
+echo $(date +%F)": End of Housekeeping" >> $LOG_DIR/$NAMING_CONVENTION.log;
