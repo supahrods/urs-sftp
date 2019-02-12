@@ -52,6 +52,8 @@ for i in $(ls $USAGE_DIR | grep .*"\.dat"$); do
         	if [ -f $USAGE_DIR/$i.FIN ]; then
                 	sed -i "/$i$/d" $TSTAMP_DIR/urs_d_dat_backup_tstamp.txt;
                 	echo "$USAGE_DIR/$i.FIN exists for $USAGE_DIR/$i" >> $LOG_DIR/$NAMING_CONVENTION.log;
+			echo "$(stat -c %Y $USAGE_DIR/$i) $(($(stat -c %Y $USAGE_DIR/$i)+$F_LIFETIME)) $i" >> $TSTAMP_DIR/urs_d_findat_tstamp.txt;
+			echo "$(stat -c %Y $USAGE_DIR/$i.FIN) $(($(stat -c %Y $USAGE_DIR/$i.FIN)+$F_LIFETIME)) $i.FIN" >> $TSTAMP_DIR/urs_d_findat_tstamp.txt;
                 	mv $USAGE_DIR/$i $DAT_DIR && mv $USAGE_DIR/$i.FIN $FIN_DIR;
 		fi;
         elif [ $(stat -c %Y $USAGE_DIR/$i) -ge $(cat $TSTAMP_DIR/urs_d_dat_backup_tstamp.txt 2> /dev/null | grep $i | cut -f2 -d" ") ]; then
@@ -68,6 +70,8 @@ for i in $(ls $USAGE_DIR | grep .*"\.dat\.FIN"$); do
                 if [ -f $USAGE_DIR/${i%.*} ]; then
                         sed -i "/$i$/d" $TSTAMP_DIR/urs_d_dat_backup_tstamp.txt;
                         echo "$USAGE_DIR/$i exists for $USAGE_DIR/${i%.*}" >> $LOG_DIR/$NAMING_CONVENTION.log;
+			echo "$(stat -c %Y $USAGE_DIR/${i%.*}) $(($(stat -c %Y $USAGE_DIR/${i%.*})+$F_LIFETIME)) ${i%.*}" >> $TSTAMP_DIR/urs_d_findat_tstamp.txt;
+			echo "$(stat -c %Y $USAGE_DIR/$i) $(($(stat -c %Y $USAGE_DIR/$i)+$F_LIFETIME)) $i" >> $TSTAMP_DIR/urs_d_findat_tstamp.txt;
                         mv $USAGE_DIR/${i%.*} $DAT_DIR && mv $USAGE_DIR/$i $FIN_DIR;
                 fi;
         elif [ $(stat -c %Y $USAGE_DIR/$i) -ge $(cat $TSTAMP_DIR/urs_d_dat_backup_tstamp.txt 2> /dev/null | grep $i | cut -f2 -d" ") ]; then
