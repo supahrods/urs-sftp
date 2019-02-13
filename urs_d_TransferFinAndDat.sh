@@ -20,24 +20,25 @@ LOG_DIR=/logs/urs_logs
 NAMING_CONVENTION=urs_d_TransferFinAndDat_$(date +%F)
 
 ## Process files then move to dat dir and fin dir
-for i in $(ls $USAGE_DIR | grep .*"\.dat"$); do	## check every .dat file
-	if [ -f $USAGE_DIR/$i.FIN ]; then		## if there is a corresponding .dat.FIN
-		echo $(date +%F)": $USAGE_DIR/$i.FIN exists for $USAGE_DIR/$i" >> $LOG_DIR/$NAMING_CONVENTION.log; ## log successful find
-		touch $USAGE_DIR/$i && touch $USAGE_DIR/$i.FIN;
-		mv $USAGE_DIR/$i $DAT_DIR && mv $USAGE_DIR/$i.FIN $FIN_DIR;	## move .dat to dat dir and .dat.FIN to fin dir
-	else
-		echo $(date +%F)": $PROCESS_DIR/$i does not have any $PROCESS_DIR/$i.FIN" >> $LOG_DIR/$NAMING_CONVENTION.log; ## else, log unsuccessful
-	fi;
+for i in $(ls $USAGE_DIR | grep .*"\.dat"$); do ## check every .dat file
+        if [ -f $USAGE_DIR/$i.FIN ]; then               ## if there is a corresponding .dat.FIN
+                echo $(date +%F)": $USAGE_DIR/$i.FIN exists for $USAGE_DIR/$i" >> $LOG_DIR/$NAMING_CONVENTION.log; ## log successful find
+                touch $USAGE_DIR/$i && touch $USAGE_DIR/$i.FIN;
+                mv $USAGE_DIR/$i $DAT_DIR && mv $USAGE_DIR/$i.FIN $FIN_DIR;     ## move .dat to dat dir and .dat.FIN to fin dir
+        else
+                echo $(date +%F)": $PROCESS_DIR/$i does not have any $PROCESS_DIR/$i.FIN" >> $LOG_DIR/$NAMING_CONVENTION.log; ## else, log unsuccessful
+        fi;
 done
 
 ## Process .dat.FIN files that do not have any .dat
 ## Another case when there is a .dat.FIN file while no .dat (however unlikely according to discussion)
 for i in $(ls $USAGE_DIR | grep .*"\.dat\.FIN"$); do  ## check every .dat.FIN file in process dir
         if [ -f $USAGE_DIR/${i%.*} ]; then
-		echo $(date +%F)": $USAGE_DIR/${i%.*} exists for $USAGE_DIR/$i" >> $LOG_DIR/$NAMING_CONVENTION.log;
-		touch $USAGE_DIR/${i%.*} && touch $USAGE_DIR/$i;
-		mv $USAGE_DIR/${i%.*} $DAT_DIR && mv $USAGE_DIR/$i $FIN_DIR;
-	else
+                echo $(date +%F)": $USAGE_DIR/${i%.*} exists for $USAGE_DIR/$i" >> $LOG_DIR/$NAMING_CONVENTION.log;
+                touch $USAGE_DIR/${i%.*} && touch $USAGE_DIR/$i;
+                mv $USAGE_DIR/${i%.*} $DAT_DIR && mv $USAGE_DIR/$i $FIN_DIR;
+        else
                 echo $(date +%F)": $USAGE_DIR/$i does not have any .dat file" >> $LOG_DIR/$NAMING_CONVENTION.log; ## logging
         fi;
 done
+
