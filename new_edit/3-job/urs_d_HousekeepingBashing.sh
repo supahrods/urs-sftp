@@ -17,13 +17,13 @@ echo "$(date "+%F %H:%M"): Housekeeping for bash reports and EOD files will star
 # Housekeeping for REPORT_DIR
 # NOTE: Timestamp is reliant on ctime, do not change attributes of the file e.g. name, owner, permission, location, and content.
 # If file is not deleted within specified date, it is a good indication that the file is tampered. Check attributes.
-find $REPORT_DIR -type f -ctime +29 -delete; # Delete files in REPORT_DIR after 30 days
+find $REPORT_DIR -type f -ctime $REPORT_DIR_AGING_DAYS -delete; # Delete files in REPORT_DIR after 30 days
 
 # Housekeeping in USAGE_DIR for EOD files
 # NOTE: Timestamp is reliant on ctime, do not change attributes of the file e.g. name, owner, permission, location, and content.
 # If file is not deleted within specified date, it is a good indication that the file is tampered. Check attributes.
 # Deletion is dependent on file name, if the pattern below is not anymore applicable, the files will not be deleted.
-find $USAGE_DIR -type f -name "*SUMMARY*" -ctime +6 -delete; # Delete files in USAGE_DIR with the file name pattern *SUMMARY* after 7 days
+find $USAGE_DIR -type f -name "*SUMMARY*" -ctime $USAGE_DIR_AGING_DAYS -delete; # Delete files in USAGE_DIR with the file name pattern *SUMMARY* after 7 days
 
 # Logging end of housekeeping process
 echo "$(date "+%F %H:%M"): End of housekeeping for bash reports and EOD files" >> $LOG_DIR/$NAMING_CONVENTION.log;
