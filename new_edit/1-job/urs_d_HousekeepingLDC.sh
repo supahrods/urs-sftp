@@ -36,10 +36,10 @@ find $SUCCESS_DIR -type f -ctime $SUCCESS_DIR_AGING_DAYS -delete; # Delete files
 # If file is not deleted within specified date, it is a good indication that the file is tampered. Check attributes.
 find $FILE_ERROR_DIR -type f -ctime $FILE_ERROR_DIR_AGING_DAYS -delete; # Delete files in FILE_ERROR_DIR after 180 days
 
-# Housekeeping for WLNFILTER_ARCHIVE_DIR
+# Housekeeping for ARCHIVE_DIR
 # NOTE: Timestamp is reliant on ctime, do not change attributes of the file e.g. name, owner, permission, location, and content.
 # If file is not deleted within specified date, it is a good indication that the file is tampered. Check attributes.
-find $WLNFILTER_ARCHIVE_DIR -type f -ctime $WLNFILTER_ARCHIVE_DIR_AGING_DAYS -delete; # Delete files in WLNFILTER_ARCHIVE_DIR after 180 days
+find $ARCHIVE_DIR -type f -ctime $ARCHIVE_DIR_AGING_DAYS -delete; # Delete files in ARCHIVE_DIR after 180 days
 
 # Housekeeping for MERGE_DIR
 # NOTE: Timestamp is reliant on ctime, do not change attributes of the file e.g. name, owner, permission, location, and content.
