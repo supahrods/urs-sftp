@@ -9,7 +9,7 @@
 #----------------------------------------------------------
 
 # Source configuration file for variables
-source /appl/urpadm/job1-2/urs_d_logs.conf;
+source /appl/urpadm/conf/urs_d_logs.conf;
 
 # Logging start of housekeeping process
 echo "$(date "+%F %H:%M"): Housekeeping for URS log files will start..." >> $LOG_DIR/$NAMING_CONVENTION.log;

@@ -30,7 +30,7 @@
 #----------------------------------------------------------
 
 # Source configuration file for variables
-source /appl/urpadm/job1-2/urs_d_LDC.conf;
+source /appl/urpadm/conf/urs_d_LDC.conf;
 
 # Logging start of LDC segregation process
 echo "$(date "+%F %H:%M"): Segregation of LDC files will start..." >> $LOG_DIR/$NAMING_CONVENTION.log;

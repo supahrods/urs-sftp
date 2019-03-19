@@ -9,7 +9,7 @@
 #----------------------------------------------------------
 
 # Source configuration file for variables
-source /appl/urpadm/job1-2/urs_d_WFR.conf;
+source /appl/urpadm/conf/urs_d_WFR.conf;
 
 # Logging start of counting process
 echo "$(date "+%F %H:%M"): Showing filter reports for the last 3 days..." >> $LOG_DIR/$NAMING_CONVENTION.log;

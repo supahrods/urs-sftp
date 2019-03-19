@@ -21,7 +21,7 @@
 #----------------------------------------------------------
 
 # Source configuration file for variables
-source /appl/urpadm/job3-4/urs_d_TFD.conf;
+source /appl/urpadm/conf/urs_d_TFD.conf;
 
 # Logging start of housekeeping process
 echo "$(date "+%F %H:%M"): Housekeeping for TFD will start..." >> $LOG_DIR/$NAMING_CONVENTION.log;

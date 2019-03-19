@@ -9,7 +9,7 @@
 #----------------------------------------------------------
 
 # Source configuration file for variables
-source /appl/urpadm/job3-4/urs_d_Bashing.conf;
+source /appl/urpadm/conf/urs_d_Bashing.conf;
 
 # Logging start of housekeeping process
 echo "$(date "+%F %H:%M"): Housekeeping for bash reports and EOD files will start..." >> $LOG_DIR/$NAMING_CONVENTION.log;

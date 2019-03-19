@@ -21,7 +21,7 @@
 #----------------------------------------------------------
 
 # Source configuration file for variables
-source /appl/urpadm/job3-4/urs_d_Bashing.conf;
+source /appl/urpadm/conf/urs_d_Bashing.conf;
 
 # Logging start of bashing process
 echo "$(date "+%F %H:%M"): Starting EOD bashing report generation..." >> $LOG_DIR/$NAMING_CONVENTION.log;

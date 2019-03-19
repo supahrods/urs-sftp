@@ -9,7 +9,7 @@
 #----------------------------------------------------------
 
 # Source configuration file for variables
-source /appl/urpadm/job1-2/urs_d_WFR.conf;
+source /appl/urpadm/conf/urs_d_WFR.conf;
 
 # Logging start of housekeeping process
 echo "$(date "+%F %H:%M"): Housekeeping for Wireline filter reports will start..." >> $LOG_DIR/$NAMING_CONVENTION.log;

@@ -21,7 +21,7 @@
 #----------------------------------------------------------
 
 # Source configuration file for variables
-source /appl/urpadm/job3-4/urs_d_TFD.conf;
+source /appl/urpadm/conf/urs_d_TFD.conf;
 
 # Run through each file and check a .dat.FIN for each .dat file then move to respective folders
 echo "$(date "+%F %H:%M") Processing each .dat file, checking if a corresponding .dat.FIN is present." >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging the process
