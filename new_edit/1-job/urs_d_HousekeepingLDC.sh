@@ -26,10 +26,10 @@ source /appl/urpadm/job1-2/urs_d_LDC.conf;
 # Logging start of LDC housekeeping process
 echo "$(date "+%F %H:%M"): Housekeeping for LDC files will start..." >> $LOG_DIR/$NAMING_CONVENTION.log;
 
-# Housekeeping for SUCCESS_DIR
+# Housekeeping for RECEIVE_DIR
 # NOTE: Timestamp is reliant on ctime, do not change attributes of the file e.g. name, owner, permission, location, and content.
 # If file is not deleted within specified date, it is a good indication that the file is tampered. Check attributes.
-find $SUCCESS_DIR -type f -ctime $SUCCESS_DIR_AGING_DAYS -delete; # Delete files in SUCCESS_DIR after 180 days
+find $RECEIVE_DIR -type f -ctime $RECEIVE_DIR_AGING_DAYS -delete; # Delete files in RECEIVE_DIR after 180 days
 
 # Housekeeping for FILE_ERROR_DIR
 # NOTE: Timestamp is reliant on ctime, do not change attributes of the file e.g. name, owner, permission, location, and content.
