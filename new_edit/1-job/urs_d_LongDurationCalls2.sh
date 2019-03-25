@@ -58,6 +58,9 @@ for i in $(ls $CASE1_DIR/ | grep .*.ftr$); do # Check each file in CASE1_DIR tha
 		sort -t, -k25 -V $CASE1_DIR/placeholder_$CALL_IDENTIFIER > $CASE1_DIR/$i;
 		rm $CASE1_DIR/placeholder_$CALL_IDENTIFIER 2> /dev/null;
 		sed -i "$ s/true,1,true,$(tail -n1 $CASE1_DIR/$i | cut -f31 -d,)/true,1,false,$(tail -n1 $CASE1_DIR/$i | cut -f31 -d,)/" $CASE1_DIR/$i;
+		for a in $(nl $CASE1_DIR/$i | cut -c6); do
+                        sed -i "$a s/$(sed -n ${a}p $CASE1_DIR/$i | cut -f25-31 -d,)/$a,$(sed -n ${a}p $CASE1_DIR/$i | cut -f26-31 -d,)/" $CASE1_DIR/$i;
+		done;
 		sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
 		mv $CASE1_DIR/$i $SUCCESS_DIR;
 		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
@@ -190,6 +193,9 @@ for i in $(ls $CASE4_DIR/ | grep .*.ftr$); do # Check each file in CASE4_DIR tha
 			mv $CASE4_DIR/$i $SUCCESS_DIR;
 		else
 			sed -i "$ s/true,1,true,$(tail -n1 $CASE4_DIR/$i | cut -f31 -d,)/true,1,false,$(tail -n1 $CASE4_DIR/$i | cut -f31 -d,)/" $CASE4_DIR/$i;
+			for a in $(nl $CASE4_DIR/$i | cut -c6); do
+				sed -i "$a s/$(sed -n ${a}p $CASE4_DIR/$i | cut -f25-31 -d,)/$a,$(sed -n ${a}p $CASE4_DIR/$i | cut -f26-31 -d,)/" $CASE4_DIR/$i;
+			done;
 			sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
 			mv $CASE4_DIR/$i $SUCCESS_DIR;
 		fi;
