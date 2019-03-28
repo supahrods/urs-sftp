@@ -36,7 +36,7 @@ if [ $(ls $USAGE_DIR | grep .*\.txt$ | wc -w) == 0 ]; then
 else
 	for b in $(ls $USAGE_DIR | grep .*\.txt$); do
 		# Check every .dat inside the EOD report then count number of validated, missing fixes, and missing files
-		for i in $(cat $USAGE_DIR/$b.txt 2> /dev/null | grep .*\.dat); do # Check every content of EOD file that ends with .dat
+		for i in $(cat $USAGE_DIR/$b 2> /dev/null | grep .*\.dat); do # Check every content of EOD file that ends with .dat
 			if ls $DAT_DIR | grep -q $i; then # Check if content is found as a file inside DAT_DIR
 				if ls $FIN_DIR | grep -q $i; then # Check if content is found as a file inside FIN_DIR (not including .FIN)
 					VALIDATED_FILES=$(($VALIDATED_FILES+1)); # If found on both, increment number of validated files
