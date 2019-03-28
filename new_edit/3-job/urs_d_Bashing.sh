@@ -52,6 +52,7 @@ else
 
 		# Generate a report from tally of validated files, missing fixes, and missing files
 		echo -e "------------------------- Detailed Summary Report ----------------------------------------------------------------" >> $REPORT_DIR/${FCOUNTER}_${DATE_FILENAME};
+		echo -e "Bashing EOD Reference:                 $b" >> $REPORT_DIR/${FCOUNTER}_${DATE_FILENAME};
 		echo -e "Date of Report Generation:		$(date)" >> $REPORT_DIR/${FCOUNTER}_${DATE_FILENAME};
 		echo -e "Number of Validated File(s):		$VALIDATED_FILES" >> $REPORT_DIR/${FCOUNTER}_${DATE_FILENAME};
 		echo -e "Number of File(s) without FIN/DAT:	$MISSING_FIX" >> $REPORT_DIR/${FCOUNTER}_${DATE_FILENAME};
