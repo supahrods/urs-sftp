@@ -18,6 +18,11 @@
 #----------------------------------------------------------
 # Revision History:
 #
+# Version: 1.5
+# Author: John Rodel Villa
+# Date: April 26, 2019
+# Description: Change wording of logs during merging process
+# 
 # Version: 1.4
 # Author: John Rodel Villa
 # Date: March 7, 2019
@@ -66,8 +71,8 @@ for i in $(ls $CASE1_DIR/ | grep .*.ftr$); do # Check each file in CASE1_DIR tha
 		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
 		echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
 		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-		echo "Number of file entries: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-		echo "Number of merged files: $(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
 		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
 		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
 	fi;
@@ -105,8 +110,8 @@ for i in $(ls $CASE2_DIR/ | grep .*.ftr$); do # Check each file in CASE2_DIR tha
 		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-		echo "Number of file entries: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "Number of merged files: $(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
 		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
@@ -156,8 +161,8 @@ for i in $(ls $CASE3_DIR/ | grep .*.ftr$); do # Check each file in CASE3_DIR tha
 		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-		echo "Number of file entries: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "Number of merged files: $(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
 		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
@@ -202,8 +207,8 @@ for i in $(ls $CASE4_DIR/ | grep .*.ftr$); do # Check each file in CASE4_DIR tha
 		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-		echo "Number of file entries: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "Number of merged files: $(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
 		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
@@ -251,8 +256,8 @@ for i in $(ls $CASE5_DIR/ | grep .*.ftr$); do # Check each file in CASE5_DIR tha
 		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "Number of file entries: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "Number of merged files: $(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
 		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
@@ -297,8 +302,8 @@ for i in $(ls $CASE6_DIR/ | grep .*.ftr$); do # Check each file in CASE6_DIR tha
 		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "Number of file entries: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "Number of merged files: $(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
@@ -339,8 +344,8 @@ for i in $(ls $CASE9_DIR/ | grep .*.ftr$); do # Check each file in CASE9_DIR tha
                 echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "Number of file entries: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "Number of merged files: $(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
                 grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
