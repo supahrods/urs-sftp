@@ -2,12 +2,17 @@
 #----------------------------------------------------------
 # Author   : John Rodel Villa
 # Date     : March 5, 2019
-# Version  : 1.4
+# Version  : 1.5
 #
 # Description : Housekeeping of .dat and .FIN files
 #
 #----------------------------------------------------------
 # Revision History:
+#
+# Version: 1.5
+# Author: John Rodel Villa
+# Date: June 14, 2019
+# Description: Changed ctime to mtime
 #
 # Version: 1.4
 # Author: John Rodel Villa
@@ -27,19 +32,13 @@ source /appl/urpadm/conf/urs_d_TFD.conf;
 echo "$(date "+%F %H:%M"): Housekeeping for TFD will start..." >> $LOG_DIR/$NAMING_CONVENTION.log;
 
 # Housekeeping for DAT_DIR
-# NOTE: Timestamp is reliant on ctime, do not change attributes of the file e.g. name, owner, permission, location, and content.
-# If file is not moved within specified date, it is a good indication that the file is tampered. Check attributes.
-find $DAT_DIR -type f -ctime $DAT_DIR_AGING_DAYS | xargs -I {} mv {} $BACKUP_DIR 2> /dev/null; # Move files from DAT_DIR to BACKUP_DIR after 3 days
+find $DAT_DIR -type f -mtime $DAT_DIR_AGING_DAYS | xargs -I {} mv {} $BACKUP_DIR 2> /dev/null; # Move files from DAT_DIR to BACKUP_DIR after 3 days
 
 # Housekeeping for fin directory
-# NOTE: Timestamp is reliant on ctime, do not change attributes of the file e.g. name, owner, permission, location, and content.
-# If file is not moved within specified date, it is a good indication that the file is tampered. Check attributes.
-find $FIN_DIR -type f -ctime $FIN_DIR_AGING_DAYS | xargs -I {} mv {} $BACKUP_DIR 2> /dev/null; # Move files from FIN_DIR to BACKUP_DIR after 3 days
+find $FIN_DIR -type f -mtime $FIN_DIR_AGING_DAYS | xargs -I {} mv {} $BACKUP_DIR 2> /dev/null; # Move files from FIN_DIR to BACKUP_DIR after 3 days
 
 # Housekeeping for BACKUP_DIR
-# NOTE: Timestamp is reliant on ctime, do not change attributes of the file e.g. name, owner, permission, location, and content.
-# If file is not deleted within specified date, it is a good indication that the file is tampered. Check attributes.
-find $BACKUP_DIR -type f -ctime $BACKUP_DIR_AGING_DAYS -delete; # Delete files in BACKUP_DIR after 7 days
+find $BACKUP_DIR -type f -mtime $BACKUP_DIR_AGING_DAYS -delete; # Delete files in BACKUP_DIR after 4 days
 
 # Logging end of housekeeping process
 echo "$(date "+%F %H:%M"): End of housekeeping for TFD" >> $LOG_DIR/$NAMING_CONVENTION.log;
