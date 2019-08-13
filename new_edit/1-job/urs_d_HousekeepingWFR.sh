@@ -18,12 +18,12 @@
 source /appl/urpadm/conf/urs_d_WFR.conf;
 
 # Logging start of housekeeping process
-echo "$(date "+%F %H:%M"): Housekeeping for Wireline filter reports will start..." >> $LOG_DIR/$NAMING_CONVENTION.log;
+echo "$(date "+%F %H:%M"): Housekeeping for Wireline filter reports will start..." >> $LOG_DIR/$LOG_NAMING_CONV.log;
 
 # Housekeeping for WLNFILTER_DIR
 find $WLNFILTER_DIR -type f -mtime $WLNFILTER_DIR_AGING_DAYS -delete; # Delete files in REPORT_DIR after 30 days
 
 # Logging end of housekeeping process
-echo "$(date "+%F %H:%M"): End of housekeeping for Wireline filter reports" >> $LOG_DIR/$NAMING_CONVENTION.log;
+echo "$(date "+%F %H:%M"): End of housekeeping for Wireline filter reports" >> $LOG_DIR/$LOG_NAMING_CONV.log;
 
 # EOF

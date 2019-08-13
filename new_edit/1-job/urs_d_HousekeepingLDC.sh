@@ -29,7 +29,7 @@
 source /appl/urpadm/conf/urs_d_LDC.conf;
 
 # Logging start of LDC housekeeping process
-echo "$(date "+%F %H:%M"): Housekeeping for LDC files will start..." >> $LOG_DIR/$NAMING_CONVENTION.log;
+echo "$(date "+%F %H:%M"): Housekeeping for LDC files will start..." >> $LOG_DIR/$LOG_NAMING_CONV.log;
 
 # Housekeeping for FILE_ERROR_DIR
 find $FILE_ERROR_DIR -type f -mtime $FILE_ERROR_DIR_AGING_DAYS -delete; # Delete files in FILE_ERROR_DIR after 180 days
@@ -41,4 +41,4 @@ find $ARCHIVE_DIR -type f -mtime $ARCHIVE_DIR_AGING_DAYS -delete; # Delete files
 find $MERGE_DIR -type f -mtime $MERGE_DIR_AGING_DAYS -delete; # Delete files in MERGE_DIR after 7 days
 
 # Logging end of LDC housekeeping process
-echo "$(date "+%F %H:%M"): Housekeeping for LDC files has finished" >> $LOG_DIR/$NAMING_CONVENTION.log;
+echo "$(date "+%F %H:%M"): Housekeeping for LDC files has finished" >> $LOG_DIR/$LOG_NAMING_CONV.log;

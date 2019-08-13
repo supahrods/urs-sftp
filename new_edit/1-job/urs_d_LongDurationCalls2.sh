@@ -38,10 +38,10 @@
 source /appl/urpadm/conf/urs_d_LDC.conf;
 
 # Logging start of LDC processing
-echo "$(date "+%F %H:%M"): Processing of LDC files will start..." >> $LOG_DIR/$NAMING_CONVENTION.log;
+echo "$(date "+%F %H:%M"): Processing of LDC files will start..." >> $LOG_DIR/$NAMING_CONVENTION2.log;
 
 # Process Case1 (File entries with missing last aCR 'true,1,false')
-echo "$(date "+%F %H:%M"): Case1 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case1 files
+echo "$(date "+%F %H:%M"): Case1 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case1 files
 for i in $(ls $CASE1_DIR/ | grep .*.ftr$); do # Check each file in CASE1_DIR that has a file extension of .ftr
 	touch -m $CASE1_DIR/$i; # Update file timestamp
 	CALL_IDENTIFIER=$(head -n1 $CASE1_DIR/$i 2> /dev/null | cut -f31 -d,); # Save the call identifier in a variable
@@ -68,19 +68,19 @@ for i in $(ls $CASE1_DIR/ | grep .*.ftr$); do # Check each file in CASE1_DIR tha
 		done;
 		sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
 		mv $CASE1_DIR/$i $SUCCESS_DIR;
-		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-		echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-		echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-		echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+		echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+		echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+		echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
 		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
 	fi;
 done;
-echo "$(date "+%F %H:%M"): Case1 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case1 files
+echo "$(date "+%F %H:%M"): Case1 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case1 files
 
 # Process Case2 (File entries with missing initial aCR 'false,2,true')
-echo "$(date "+%F %H:%M"): Case2 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case2 files
+echo "$(date "+%F %H:%M"): Case2 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case2 files
 for i in $(ls $CASE2_DIR/ | grep .*.ftr$); do # Check each file in CASE2_DIR that has a file extension of .ftr
         touch -m $CASE2_DIR/$i; # Update file timestamp
 	CALL_IDENTIFIER=$(head -n1 $CASE2_DIR/$i 2> /dev/null | cut -f31 -d,); # Save the call identifier in a variable
@@ -107,19 +107,19 @@ for i in $(ls $CASE2_DIR/ | grep .*.ftr$); do # Check each file in CASE2_DIR tha
                 done
                 sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
                 mv $CASE2_DIR/$i $SUCCESS_DIR;
-		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-		echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+		echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
 		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
 done;
-echo "$(date "+%F %H:%M"): Case2 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case2 files
+echo "$(date "+%F %H:%M"): Case2 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case2 files
 
 # Process Case3 (File entries with missing middle aCR 'true,1,true')
-echo "$(date "+%F %H:%M"): Case3 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case3 files
+echo "$(date "+%F %H:%M"): Case3 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case3 files
 for i in $(ls $CASE3_DIR/ | grep .*.ftr$); do # Check each file in CASE3_DIR that has a file extension of .ftr
         touch -m $CASE3_DIR/$i; # Update file timestamp
 	CALL_IDENTIFIER=$(head -n1 $CASE3_DIR/$i 2> /dev/null | cut -f31 -d,); # Save the call identifier in a variable
@@ -158,19 +158,19 @@ for i in $(ls $CASE3_DIR/ | grep .*.ftr$); do # Check each file in CASE3_DIR tha
 		done
                 sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
                 mv $CASE3_DIR/$i $SUCCESS_DIR;
-		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-		echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+		echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
 		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
 done;
-echo "$(date "+%F %H:%M"): Case3 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case3 files
+echo "$(date "+%F %H:%M"): Case3 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case3 files
 
 # Process Case4 (File entries with a one line initial aCR only)
-echo "$(date "+%F %H:%M"): Case4 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case4 files
+echo "$(date "+%F %H:%M"): Case4 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case4 files
 for i in $(ls $CASE4_DIR/ | grep .*.ftr$); do # Check each file in CASE4_DIR that has a file extension of .ftr
         touch -m $CASE4_DIR/$i; # Update file timestamp
 	CALL_IDENTIFIER=$(head -n1 $CASE4_DIR/$i 2> /dev/null | cut -f31 -d,); # Save the call identifier in a variable
@@ -204,19 +204,19 @@ for i in $(ls $CASE4_DIR/ | grep .*.ftr$); do # Check each file in CASE4_DIR tha
 			sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
 			mv $CASE4_DIR/$i $SUCCESS_DIR;
 		fi;
-		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-		echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+		echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
 		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
 done;
-echo "$(date "+%F %H:%M"): Case4 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case4 files
+echo "$(date "+%F %H:%M"): Case4 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case4 files
 
 # Process Case5 (File entries with a one line middle aCR only)
-echo "$(date "+%F %H:%M"): Case5 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case5 files
+echo "$(date "+%F %H:%M"): Case5 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case5 files
 for i in $(ls $CASE5_DIR/ | grep .*.ftr$); do # Check each file in CASE5_DIR that has a file extension of .ftr
         touch -m $CASE5_DIR/$i; # Update file timestamp
 	CALL_IDENTIFIER=$(head -n1 $CASE5_DIR/$i 2> /dev/null | cut -f31 -d,); # Save the call identifier in a variable
@@ -253,19 +253,19 @@ for i in $(ls $CASE5_DIR/ | grep .*.ftr$); do # Check each file in CASE5_DIR tha
 			sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
 			mv $CASE5_DIR/$i $SUCCESS_DIR;
 		fi;
-		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
 		grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
 done;
-echo "$(date "+%F %H:%M"): Case5 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case5 files
+echo "$(date "+%F %H:%M"): Case5 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case5 files
 
 # Process Case6 (File entries with a one line last aCR only)
-echo "$(date "+%F %H:%M"): Case6 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case6 files
+echo "$(date "+%F %H:%M"): Case6 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case6 files
 for i in $(ls $CASE6_DIR/ | grep .*.ftr$); do # Check each file in CASE6_DIR that has a file extension of .ftr
         touch -m $CASE6_DIR/$i; # Update file timestamp
 	CALL_IDENTIFIER=$(head -n1 $CASE6_DIR/$i 2> /dev/null | cut -f31 -d,); # Save the call identifier in a variable
@@ -299,19 +299,19 @@ for i in $(ls $CASE6_DIR/ | grep .*.ftr$); do # Check each file in CASE6_DIR tha
 			sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
 			mv $CASE6_DIR/$i $SUCCESS_DIR;
 		fi;
-		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+		echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
                 grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
 done;
-echo "$(date "+%F %H:%M"): Case6 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case6 files
+echo "$(date "+%F %H:%M"): Case6 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case6 files
 
 # Process Case9 (File entries with missing initial (false,2,true) and last (true,1,false) aCR)
-echo "$(date "+%F %H:%M"): Case9 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case9 files
+echo "$(date "+%F %H:%M"): Case9 processing has started..." >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case9 files
 for i in $(ls $CASE9_DIR/ | grep .*.ftr$); do # Check each file in CASE9_DIR that has a file extension of .ftr
         touch -m $CASE9_DIR/$i; # Update file timestamp
         CALL_IDENTIFIER=$(head -n1 $CASE9_DIR/$i 2> /dev/null | cut -f31 -d,); # Save the call identifier in a variable
@@ -341,18 +341,18 @@ for i in $(ls $CASE9_DIR/ | grep .*.ftr$); do # Check each file in CASE9_DIR tha
                 sed -i "$ s/true,1,true,$(head -n1 $CASE9_DIR/$i | cut -f31 -d,)/true,1,false,$(head -n1 $CASE9_DIR/$i | cut -f31 -d,)/" $CASE9_DIR/$i;
                 sed -i "/$CALL_IDENTIFIER/d" $TSTAMP_DIR/urs_d_LongDurationCalls_call_aging_tstamp.txt;
                 mv $CASE9_DIR/$i $SUCCESS_DIR;
-                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION}.log;
-                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION}.log;
+                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "The following files' contents have been merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs echo >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "Total number of records: $(cat $SUCCESS_DIR/$i 2> /dev/null | wc -l)" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "$(grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | wc -l) file/s merged to $SUCCESS_DIR/$i" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
+                echo "-------------------------------------------------------------------------------" >> $LOG_DIR/${NAMING_CONVENTION2}.log;
                 grep -r $CALL_IDENTIFIER $POSSIBLE_SUCCESS | cut -f1 -d: | uniq | xargs readlink -f 2> /dev/null | xargs -I {} mv {} $MERGE_DIR 2> /dev/null;
         fi;
 done;
-echo "$(date "+%F %H:%M"): Case9 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION.log; # Logging for processing of Case9 files
+echo "$(date "+%F %H:%M"): Case9 processing has finished" >> $LOG_DIR/$NAMING_CONVENTION2.log; # Logging for processing of Case9 files
 
 # Logging end of LDC processing
-echo "$(date "+%F %H:%M"): Processing of LDC files has finished" >> $LOG_DIR/$NAMING_CONVENTION.log;
+echo "$(date "+%F %H:%M"): Processing of LDC files has finished" >> $LOG_DIR/$NAMING_CONVENTION2.log;
 
 # EOF
